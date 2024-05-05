@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DALMATIAN</title>
+    <script>
+        function animateTitle() {
+            var titles = ["☠︎︎ 𓆩𓆩♡𓆪𓆪 ☠︎︎", "MAUSOLEUM", "•┈••✦ ❤ ✦••┈•"];
+            var currentTitleIndex = 0;
+            setInterval(function() {
+                document.title = titles[currentTitleIndex];
+                currentTitleIndex = (currentTitleIndex + 1) % titles.length;
+            }, 2000);
+        }
+    </script>
+</head>
+<body onload="animateTitle">
+    <!-- Audio element for music -->
+    <audio id="my-audio" loop>
+        <source src="music2.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Fullscreen Button -->
+    <div id="fullscreen-btn">
+        <p class="btn-text">o_O</p>
+    </div>
+    <script>
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const audio = document.getElementById('my-audio');
+
+        fullscreenBtn.addEventListener('click', function() {
+            audio.play();
+            fullscreenBtn.style.display = "none";
+            document.body.style.overflow = "auto";
+        });
+
+        window.addEventListener('contextmenu', function (e) {
+            e.preventDefault();
+        }, false);
+
+        const links = document.querySelectorAll('#links a');
+        for (let i = 0; i < links.length; i++) {
+            links[i].addEventListener('click', function() {
+                audio.pause();
+            });
+        }
+    </script>
+    <style>
+        body {
+            cursor: url('Black Cross.cur'), auto;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        #fullscreen-btn {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-text {
+            color: black;
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgb(255, 255, 255), 0 0 10px rgba(255, 255, 255);
+        }
+
+        #links {
+            position: relative;
+            z-index: 1000;
+        }
+    </style>
+
+  <head>
+    <style>
+        body {
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .shoutbox {
+            width: 1000px;
+            height: 400px;
+            background-color: transparent;
+            border: 2px solid white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .shout-text {
+            color: white;
+            font-size: 18px;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="shoutbox">
+        <div class="shout-text">
+          ☽༺♰༻☾
+       
+        </div>
+      <div class="shout-text">donate crypto asap need new rock shoes</div>
+
+       <div class="shout-text">↓</div>
+      
+      <div class="shout-text">bc1qw3sw5evnasvjf3d3v9n8vxvzmcz3gqnanfqdmw</div>
+      
+      <div class="shout-text">↓</div>
+      
+      <div class="shout-text">0xADB49a8C35AF79333d93166f1EA55572F7d4aC73</div>
+
+      <div class="shout-text">↓</div>
+
+      <div class="shout-text">LPbt4CSiESaVreXeFy5e8kwA8mtjMiNPib</div>
+
+      <div class="shout-text">↓</div>
+
+      <div class="shout-text">BTC, ETH, LTC ONLY PLEASE ;-;</div>
+
+    </div>

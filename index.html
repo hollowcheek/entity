@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DALMATIAN</title>
+    <script>
+        function animateTitle() {
+            var titles = ["☠︎︎ 𓆩𓆩♡𓆪𓆪 ☠︎︎", "MAUSOLEUM", "•┈••✦ ❤ ✦••┈•"];
+            var currentTitleIndex = 0;
+            setInterval(function() {
+                document.title = titles[currentTitleIndex];
+                currentTitleIndex = (currentTitleIndex + 1) % titles.length;
+            }, 2000);
+        }
+    </script>
+</head>
+
+<body onload="animateTitle()">
+    <!-- Audio element for music -->
+    <audio id="my-audio" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Fullscreen Button -->
+    <div id="fullscreen-btn">
+        <p class="btn-text">click if you want</p>
+    </div>
+    <script>
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const audio = document.getElementById('my-audio');
+
+        fullscreenBtn.addEventListener('click', function() {
+            audio.play();
+            fullscreenBtn.style.display = "none";
+            document.body.style.overflow = "auto";
+        });
+
+        window.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        }, false);
+
+        const links = document.querySelectorAll('#links a');
+        for (let i = 0; i < links.length; i++) {
+            links[i].addEventListener('click', function() {
+                audio.pause();
+            });
+        }
+    </script>
+
+    <div id="container">
+        <video id="bg-video" autoplay loop muted>
+            <source src="background.mp4" type="video/mp4">
+        </video>
+        <div id="content">
+            <img id="profile-pic" src="https://i.ibb.co/7NkqvWv/5-D714-AC6-E036-475-C-B851-FE1-B4185-D13-F.png" alt="Profile Picture">
+            <div id="name">hollowcheek</div>
+
+            <div id="social-links">
+                <a href="ip.html"><i class="fab fa-cc-visa"></i></a>
+            </div>
+
+
+            <div class="bio">
+                MDCLXXXX
+            </div>
+            <div class="bio">
+                ʚ♡︎ɞ everything comes to an end, even if you don't want ʚ♡︎ɞ
+            </div>
+            <div class="bio">
+                my files are corrupted >:-(
+            </div>
+            <div id="social-links">
+                <a href="https://tiktok.com/@14truce"><i class="fab fa-tiktok"></i></a>
+                <a href="https://t.me/katoliko"><i class="fab fa-telegram"></i></a>
+                <a href="crypto.html"><i class="fab fa-bitcoin"></i></a>
+                <a href="https://www.roblox.com/users/4585430877/profile"><i class="fab fa-roblox"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        body {
+            cursor: url('Black Cross.cur'), auto;
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        #fullscreen-btn {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-text {
+            color: black;
+            font-size: 40px;
+            font-weight: bold;
+            text-align: center;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgb(255, 255, 255), 0 0 10px rgba(255, 255, 255);
+        }
+    </style>
+
+    <style>
+        #container {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        #profile-pic {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 3px solid black;
+            box-shadow: 0 0 10px rgba(255, 255, 255);
+        }
+
+        #name {
+            margin-top: 15px;
+            font-size: 36px;
+            color: rgb(0, 0, 0);
+            text-shadow: 2px 2px 4px rgba(255, 255, 255);
+        }
+
+        .bio {
+            margin-top: 10px;
+            font-size: 18px;
+            color: black;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255);
+            max-width: 300px;
+        }
+
+        #social-links {
+            margin-top: 20px;
+        }
+
+        #social-links a {
+            color: #000000;
+            font-size: 30px;
+            margin: 5px;
+            text-shadow: 0 0 10px #ffffff;
+        }
+    </style>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</body>
+</html>

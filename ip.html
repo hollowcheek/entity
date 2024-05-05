@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DALMATIAN</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 14px; /* Adjust the font size */
+            margin: 0;
+            padding: 20px; /* Add padding to give some space */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .shoutbox {
+            text-align: left; /* Align the text to the left */
+        }
+
+        .shout-text {
+            margin-bottom: 5px; /* Add margin between each text */
+        }
+
+        #map {
+            width: 150px; /* Make the map small */
+            height: 150px; /* Adjust the height of the map */
+            border: 2px solid white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+
+
+<body onload="animateTitle(); getIP();">
+    <div class="shoutbox">
+        <h1>OMG SO SCARY !?!?</h1>
+        <p id="ip" class="shout-text"></p>
+        <p id="country" class="shout-text"></p>
+        <p id="isp" class="shout-text"></p>
+        <p id="city" class="shout-text"></p>
+        <p id="region" class="shout-text"></p>
+        <p id="latitude" class="shout-text"></p>
+        <p id="longitude" class="shout-text"></p>
+        <p id="timezone" class="shout-text"></p>
+        <p id="postal" class="shout-text"></p>
+        <p id="currency" class="shout-text"></p>
+        <p id="continent" class="shout-text"></p>
+        <p id="country-code" class="shout-text"></p>
+        <p id="languages" class="shout-text"></p>
+        <p id="detailed-region" class="shout-text"></p>
+        <p id="resolution" class="shout-text"></p>
+        <p id="browser" class="shout-text"></p>
+        <p id="os" class="shout-text"></p>
+        <p id="device-type" class="shout-text"></p>
+        <p id="device-class" class="shout-text"></p>
+        <p id="device-category" class="shout-text"></p>
+        <div class="shout-text">(some info are very not accurate)</div>
+        
+        
+        <!-- Map -->
+        <iframe id="map" frameborder="1" style="border:1" allowfullscreen></iframe>
+    </div>
+
+    <!-- Audio element for music -->
+    <audio id="my-audio" loop autoplay>
+        <source src="music3.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function animateTitle() {
+            var titles = ["☠︎︎ 𓆩𓆩♡𓆪𓆪 ☠︎︎", "MAUSOLEUM", "•┈••✦ ❤ ✦••┈•"];
+            var currentTitleIndex = 0;
+            setInterval(function() {
+                document.title = titles[currentTitleIndex];
+                currentTitleIndex = (currentTitleIndex + 1) % titles.length;
+            }, 2000);
+        }
+
+        function getIP() {
+            fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                const ipAddress = data.ip;
+                document.getElementById('ip').textContent = `Your IP Address: ${ipAddress}`;
+                
+                fetch(`https://ipapi.co/${ipAddress}/json/`)
+                .then(response => response.json())
+                .then(ipData => {
+                    document.getElementById('country').textContent = `Country: ${ipData.country_name} (${ipData.country})`;
+                    document.getElementById('isp').textContent = `ISP: ${ipData.org}`;
+                    document.getElementById('city').textContent = `City: ${ipData.city}`;
+                    document.getElementById('region').textContent = `Region: ${ipData.region}`;
+                    document.getElementById('latitude').textContent = `Latitude: ${ipData.latitude}`;
+                    document.getElementById('longitude').textContent = `Longitude: ${ipData.longitude}`;
+                    document.getElementById('timezone').textContent = `Time Zone: ${ipData.timezone}`;
+                    document.getElementById('postal').textContent = `Postal Code: ${ipData.postal}, ${ipData.region}, ${ipData.country_name}`;
+                    document.getElementById('currency').textContent = `Currency: ${ipData.currency}`;
+                    document.getElementById('continent').textContent = `Continent: ${ipData.continent_name || 'Unknown'}`;
+                    document.getElementById('country-code').textContent = `Country Code: ${ipData.country}`;
+                    document.getElementById('languages').textContent = `Languages: ${ipData.languages}`;
+                    
+                    // Additional region information
+                    const regionInfo = ipData.region || '';
+                    const countryName = ipData.country_name || '';
+                    const detailedRegion = regionInfo ? ` (${regionInfo})` : '';
+                    const detailedCountry = countryName ? ` (${countryName})` : '';
+                    document.getElementById('detailed-region').textContent = `Region: ${ipData.region}${detailedRegion}${detailedCountry}`;
+                    
+                    // Screen resolution
+                    document.getElementById('resolution').textContent = `Screen Resolution: ${window.screen.width}x${window.screen.height}`;
+                    
+                    // Browser information
+                    const browserInfo = getBrowserInfo(navigator.userAgent);
+                    document.getElementById('browser').textContent = `Browser: ${browserInfo}`;
+                    
+                    // Operating system
+                    const os = getOS(navigator.userAgent);
+                    document.getElementById('os').textContent = `Operating System: ${os}`;
+                    
+                    // Device type
+                    const deviceType = getDeviceType(navigator.userAgent);
+                    document.getElementById('device-type').textContent = `Device Type: ${deviceType}`;
+                    
+                    // Device class
+                    const deviceClass = getDeviceClass(navigator.userAgent);
+                    document.getElementById('device-class').textContent = `Device Class: ${deviceClass}`;
+                    
+                    // Mobile or Desktop/Laptop
+                    const isMobile = isMobileDevice(navigator.userAgent);
+                    const deviceCategory = isMobile ? 'Mobile' : 'Desktop/Laptop';
+                    document.getElementById('device-category').textContent = `Device Category: ${deviceCategory}`;
+                    
+                    // Map
+                    const mapUrl = `https://maps.google.com/maps?q=${ipData.latitude},${ipData.longitude}&z=15&output=embed`;
+                    document.getElementById('map').setAttribute('src', mapUrl);
+                })
+                .catch(error => console.error('Error fetching IP details:', error));
+            })
+            .catch(error => console.error('Error fetching IP:', error));
+        }
+        
+        function getBrowserInfo(userAgent) {
+            const browserRegex = /(firefox|chrome|safari|opera|msie|trident)/i;
+            const match = userAgent.match(browserRegex);
+            if (match) {
+                return match[0];
+            }
+            return 'Unknown';
+        }
+        
+        function getOS(userAgent) {
+            const osRegex = /(windows nt|windows phone|android|iphone|ipad|ipod|mac os x)/i;
+            const match = userAgent.match(osRegex);
+            if (match) {
+                switch (match[0].toLowerCase()) {
+                    case 'windows nt':
+                        return 'Windows';
+                    case 'windows phone':
+                        return 'Windows Phone';
+                    case 'android':
+                        return 'Android';
+                    case 'iphone':
+                    case 'ipad':
+                    case 'ipod':
+                        return 'iOS';
+                    case 'mac os x':
+                        return 'macOS';
+                    default:
+                        return 'Unknown';
+                }
+            }
+            return 'Unknown';
+        }
+        
+        function getDeviceType(userAgent) {
+            const deviceTypeRegex = /(mobile|tablet|ipad|iphone|ipod|android)/i;
+            const match = userAgent.match(deviceTypeRegex);
+            if (match) {
+                switch (match[0].toLowerCase()) {
+                    case 'mobile':
+                        return 'Mobile';
+                    case 'tablet':
+                        return 'Tablet';
+                    case 'ipad':
+                    case 'iphone':
+                    case 'ipod':
+                        return 'iOS';
+                    case 'android':
+                        return 'Android';
+                    default:
+                        return 'Unknown';
+                }
+            }
+            return 'Unknown';
+        }
+        
+        function getDeviceClass(userAgent) {
+            const deviceClassRegex = /(desktop|mobile|tablet)/i;
+            const match = userAgent.match(deviceClassRegex);
+            if (match) {
+                switch (match[0].toLowerCase()) {
+                    case 'desktop':
+                        return 'Desktop';
+                    case 'mobile':
+                        return 'Mobile';
+                    case 'tablet':
+                        return 'Tablet';
+                    default:
+                        return 'Unknown';
+                }
+            }
+            return 'Unknown';
+        }
+        
+        function isMobileDevice(userAgent) {
+            const mobileRegex = /(android|iphone|ipad|ipod|windows phone)/i;
+            return mobileRegex.test(userAgent);
+        }
+    </script>
+
+
+
+<body onload="animateTitle()">
+    <!-- Audio element for music -->
+    <audio id="my-audio" loop>
+        <source src="music3.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Fullscreen Button -->
+    <div id="fullscreen-btn">
+        <p class="btn-text">funny time</p>
+    </div>
+    <script>
+        const fullscreenBtn = document.getElementById('fullscreen-btn');
+        const audio = document.getElementById('my-audio');
+
+        fullscreenBtn.addEventListener('click', function() {
+            audio.play();
+            fullscreenBtn.style.display = "none";
+            document.body.style.overflow = "auto";
+        });
+
+        window.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+        }, false);
+
+        const links = document.querySelectorAll('#links a');
+        for (let i = 0; i < links.length; i++) {
+            links[i].addEventListener('click', function() {
+                audio.pause();
+            });
+        }
+    </script>
+
+<style>
+    body {
+        cursor: url('Black Cross.cur'), auto;
+    }
+
+    html,
+    body {
+        height: 100%;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    #fullscreen-btn {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn-text {
+        color: black;
+        font-size: 40px;
+        font-weight: bold;
+        text-align: center;
+        z-index: 1;
+        text-shadow: 2px 2px 4px rgb(255, 255, 255), 0 0 10px rgba(255, 255, 255);
+    }
+</style>
+
+
+</body>
+</html>
